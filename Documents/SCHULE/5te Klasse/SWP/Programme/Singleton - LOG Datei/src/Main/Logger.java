@@ -4,23 +4,19 @@ package Main;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-
-import java.sql.Timestamp;
-
+import java.util.Date;
 
 
 public class Logger {
 
     public static Logger instance;
-    private Main.LogLevel LogLevel;
-
-    PrintWriter writer;
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private Main.LogLevel level;
+    private PrintWriter writer;
 
 
     private Logger() throws java.io.IOException
     {
-        writer = new PrintWriter(new FileWriter("the-file-name.txt",true));
+        writer = new PrintWriter(new FileWriter("log.txt",true));
 
     }
 
@@ -34,40 +30,46 @@ public class Logger {
     }
 
     public void setLogLevel(Main.LogLevel x){   //?
-        this.LogLevel = x;
+        level = x;
     }
 
 
 
-    public boolean log(String text){
+    public boolean log(String text)throws java.io.IOException{
 
-        writer.println("LOG "+text);
+        SimpleDateFormat a = new SimpleDateFormat("dd.mm.yyyy - HH:mm:ss ");
+        Date currentTime = new Date();
+
+        writer.println(a.format(currentTime)+"\t\t LOG \t\t"+text);
         writer.flush();
         return true;
    }
+
     public boolean debug(String text){
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
-        if(LogLevel.ordinal()>1) {
+        if(level.ordinal()>1) {
             return false;
         }
 
-        System.out.println(sdf.format(timestamp));
-        writer.println("DEBUG "+text);
-        writer.flush();
+        SimpleDateFormat a = new SimpleDateFormat("dd.mm.yyyy - HH:mm:ss ");
+        Date currentTime = new Date();
 
+        writer.println(a.format(currentTime)+"\t\t DEBUG \t\t"+text);
+        writer.flush();
         return true;
     }
+
     public boolean info(String text){
 
-        if(LogLevel.ordinal()< 1) {
+        if(level.ordinal()< 1) {
             return false;
         }
 
-        writer.println("INFO "+text);
-        writer.flush();
+        SimpleDateFormat a = new SimpleDateFormat("dd.mm.yyyy - HH:mm:ss ");
+        Date currentTime = new Date();
 
+        writer.println(a.format(currentTime)+"\t\t INFO \t\t"+text);
+        writer.flush();
         return true;
     }
 
@@ -75,23 +77,29 @@ public class Logger {
 
     public boolean warning(String text){
 
-        if(LogLevel.ordinal()< 2) {
+        if(level.ordinal()< 2) {
             return false;
         }
-        writer.println("WARNING "+text);
-        writer.flush();
 
+        SimpleDateFormat a = new SimpleDateFormat("dd.mm.yyyy - HH:mm:ss ");
+        Date currentTime = new Date();
+
+        writer.println(a.format(currentTime)+"\t\t WARNING \t\t"+text);
+        writer.flush();
         return true;
     }
 
     public boolean error(String text){
 
-        if(LogLevel.ordinal()< 3) {
+        if(level.ordinal()< 3) {
             return false;
         }
-        writer.println("ERROR "+text);
-        writer.flush();
 
+        SimpleDateFormat a = new SimpleDateFormat("dd.mm.yyyy - HH:mm:ss ");
+        Date currentTime = new Date();
+
+        writer.println(a.format(currentTime)+"\t\t ERROR \t\t"+text);
+        writer.flush();
         return true;
     }
 

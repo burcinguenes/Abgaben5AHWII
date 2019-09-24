@@ -1,6 +1,5 @@
 package Main;
 import java.io.*;
-import java.util.Date;
 
 public class Main {
 
@@ -16,7 +15,6 @@ public class Main {
     {
 
         PrintWriter writer;
-        Date date = new Date();
 
         /*try
         {
