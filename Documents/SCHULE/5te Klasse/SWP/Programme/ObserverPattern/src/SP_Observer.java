@@ -10,7 +10,8 @@ public class SP_Observer implements IObserver {
     }
 
     public void update(int val) {
-        System.out.println("\nHey "+this.name+" Observable has updated its value: "+val);
+
+            System.out.println("\nHey "+this.name+" Observable has updated its value: "+val);
 
     }
 

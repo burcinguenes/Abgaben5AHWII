@@ -9,6 +9,6 @@ public class Main {
         observable.setValue(15);
 
         //observable.unsubscribe(observer);
-        observable.setValue(16);
+        observable.setValue(12);
     }
 }

@@ -16,7 +16,10 @@ public class Observable {
         if(observers.size()>0){
             for (int i=0;i<=observers.size()-1; i++)
             {
-                observers.get(i).update(this.value);
+                if(observers.get(i).getInterestValue()<=this.value){
+                    observers.get(i).update(this.value);
+                }
+
 
             }
         }
